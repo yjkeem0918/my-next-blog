@@ -1,8 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
+import styled from "styled-components";
 
 const name = "youngji";
 export const siteTitle = "영지의 개발블로그";
@@ -25,41 +25,25 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        {home ? (
+      <Nav>
+        <Link href="/">youngji.dev</Link>
+      </Nav>
+      <ProfileWrapper>
+        {home && (
           <>
-            <Image
+            <img
               priority
               src="/images/profile.png"
               className={utilStyles.borderCircle}
-              height={144}
-              width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/profile.png"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
+            <div>
+              <h1>{name}</h1>
+              <h2>Frontend Developer</h2>
+            </div>
           </>
         )}
-      </header>
+      </ProfileWrapper>
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
@@ -71,3 +55,27 @@ export default function Layout({ children, home }) {
     </div>
   );
 }
+
+const Nav = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 30px 0;
+  height: 60px;
+  font-size: 30px;
+  a {
+    font-weight: 800;
+    text-decoration: none;
+  }
+`;
+
+const ProfileWrapper = styled.header`
+  display: flex;
+  align-items: center;
+  margin: 30px 30px;
+  font-size: 15px;
+  img {
+    width: 120px;
+    height: 120px;
+    margin-right: 30px;
+  }
+`;
